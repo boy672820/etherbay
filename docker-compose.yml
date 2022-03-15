@@ -1,0 +1,27 @@
+version: '3'
+services:
+  blockchain:
+    container_name: etherbay-blockchain
+    build: ./blockchain
+    volumes:
+      - ./blockchain/contracts:/usr/src/app/contracts
+      - ./blockchain/scripts:/usr/src/app/scripts
+      - ./blockchain/test:/usr/src/app/test
+    ports:
+      - '8546:8545'
+  server:
+    container_name: etherbay-server
+    build: ./server
+    volumes:
+      - ./server/src:/usr/src/app/src
+      - ./server/test:/usr/src/app/test
+    ports:
+      - '8112:8112'
+  client:
+    container_name: etherbay-client
+    build: ./client
+    volumes:
+      - ./client/src:/usr/src/app/src
+      - ./client/static:/usr/src/app/static
+    ports:
+      - '3000:3000'
